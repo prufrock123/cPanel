@@ -1,4 +1,3 @@
-
 @mixin gridify($col, $width, $gutter: 2) {
     @media only screen and (min-width: #{$width}#{"px"}){
         .grid-#{$col}-#{$width} {
@@ -8,7 +7,6 @@
         }
     }
 }
-
 /**
  * BOX-SIZING
  */
@@ -16,7 +14,6 @@
 *, *:before, *:after {
     box-sizing: border-box;
 }
-
 /**
  * GRIDS
  */
@@ -27,7 +24,6 @@
     font-size: 0;
     text-align: justify;
     position: relative;
-
     & > * {
         font-size: medium;
         text-align: left;
@@ -35,7 +31,6 @@
         width: 100%;
         vertical-align: top;
     }
-
     &:after {
         display: inline-block;
         width: 100%;
@@ -43,10 +38,8 @@
         font-size: medium;
     }
 }
-
 @include gridify(2, 400);
 @include gridify(4, 600);
-
 /**
  * GENERAL
  */
@@ -54,4 +47,29 @@
 body {
     transition: opacity .25s ease;
 }
-    
+label {
+    width: 155px;
+    display: block;
+    float: left;
+    text-align: right;
+    padding: 0 15px 0 0;
+}
+ul.nobullet {
+    list-style-type: none;
+}
+li {
+    margin: 0 0 15px 0;
+}
+li input {
+    padding: 2px;
+    border: solid 1px #7295ba;
+}
+#submit_btn {
+    width: 111px;
+    height: 33px;
+    border: none;
+    color: #fff;
+    margin: 15px 0 0 250px;
+    padding: 0;
+    cursor: pointer;
+}
