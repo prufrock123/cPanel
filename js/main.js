@@ -119,7 +119,7 @@ YUI().use('transition', 'panel', function(Y) {
 		// srcNode: generateIframeNode(),
 		// headerContent: "<div class='yui3-widget-hd'></div>",
 		// headerContent: "<div id='myHeader'></div>",
-		bodyContent: "<iframe src='./cPanel.html' sandbox='allow-same-origin' id='popup'></iframe>",
+		bodyContent: "<iframe src='./cPanel.html' sandbox='allow-same-origin allow-scripts allow-forms' id='popup'></iframe>",
 		width: "90%",
 		height: "70%",
 		xy : [300, -300],
