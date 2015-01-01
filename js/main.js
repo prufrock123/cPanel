@@ -197,76 +197,76 @@ Part 1. FORM VALIDATION CODE
 Part 2. YUI POPUP CODE
  */
 
-	YUI().use('transition', 'panel', function(Y) {
-	    console.dir(Y)
+	// YUI().use('transition', 'panel', function(Y) {
+	//     console.dir(Y)
 
-	    var openBtn = Y.one('#findoutmore'),
-	        panel, bb;
+	//     var openBtn = Y.one('#findoutmore'),
+	//         panel, bb;
 
-	    function showPanel() {
-	        panel.show();
-	        bb.transition({
-	            duration: 0.5,
-	            top: '80px'
-	        });
-	    }
+	//     function showPanel() {
+	//         panel.show();
+	//         bb.transition({
+	//             duration: 0.5,
+	//             top: '80px'
+	//         });
+	//     }
 
-	    function hidePanel() {
-	            bb.transition({
-	                duration: 0.5,
-	                top: '-300px'
-	            }, function() {
-	                panel.hide();
-	            });
-	        }
-	        // debugger;
+	//     function hidePanel() {
+	//             bb.transition({
+	//                 duration: 0.5,
+	//                 top: '-300px'
+	//             }, function() {
+	//                 panel.hide();
+	//             });
+	//         }
+	//         // debugger;
 
-	    function generateIframeNode() {
-	        var objNode = document.createElement("iframe");
-	        objNode.id = "popup";
-	        // objNode.src = "http://cpanel.net";
-	        objNode.src = "./cPanel.html";
-	        objNode.sandbox = "allow-same-origin";
-	        return objNode;
-	    }
+	//     function generateIframeNode() {
+	//         var objNode = document.createElement("iframe");
+	//         objNode.id = "popup";
+	//         // objNode.src = "http://cpanel.net";
+	//         objNode.src = "./cPanel.html";
+	//         objNode.sandbox = "allow-same-origin";
+	//         return objNode;
+	//     }
 
-	    panel = new Y.Panel({
-	        // srcNode: $("#popup").load("./cPanel.html"),
-	        // srcNode: generateIframeNode(),
-	        // headerContent: "<div class='yui3-widget-hd'></div>",
-	        // headerContent: "<div id='myHeader'></div>",
-	        bodyContent: "<iframe src='./cPanel.html' sandbox='allow-same-origin allow-scripts allow-forms' id='popup'></iframe>",
-	        width: "90%",
-	        height: "70%",
-	        xy: [300, -300],
-	        id: 'myPanel',
-	        centered: true,
-	        zIndex: 5,
-	        modal: true,
-	        visible: false,
-	        render: true,
-	        buttons: [{
-	                value: "close panel",
-	                action: function(e) {
-	                    e.preventDefault();
-	                    hidePanel();
-	                },
-	                section: Y.WidgetStdMod.HEADER
-	            }]
-	            // hideOn: [
-	            // 	{
-	            // 		eventName: 'clickoutside'
-	            // 	}
-	            // ]
-	    });
+	//     panel = new Y.Panel({
+	//         // srcNode: $("#popup").load("./cPanel.html"),
+	//         // srcNode: generateIframeNode(),
+	//         // headerContent: "<div class='yui3-widget-hd'></div>",
+	//         // headerContent: "<div id='myHeader'></div>",
+	//         bodyContent: "<iframe src='./cPanel.html' sandbox='allow-same-origin allow-scripts allow-forms' id='popup'></iframe>",
+	//         width: "90%",
+	//         height: "70%",
+	//         xy: [300, -300],
+	//         id: 'myPanel',
+	//         centered: true,
+	//         zIndex: 5,
+	//         modal: true,
+	//         visible: false,
+	//         render: true,
+	//         buttons: [{
+	//                 value: "close panel",
+	//                 action: function(e) {
+	//                     e.preventDefault();
+	//                     hidePanel();
+	//                 },
+	//                 section: Y.WidgetStdMod.HEADER
+	//             }]
+	//             // hideOn: [
+	//             // 	{
+	//             // 		eventName: 'clickoutside'
+	//             // 	}
+	//             // ]
+	//     });
 
-	    bb = panel.get('boundingBox');
+	//     bb = panel.get('boundingBox');
 
-	    openBtn.on('click', function(e) {
-	        showPanel();
-	    });
+	//     openBtn.on('click', function(e) {
+	//         showPanel();
+	//     });
 
-	});
+	// });
 
 /*
 Part 3. THE ARRAY CODE
@@ -282,14 +282,42 @@ Part 3. THE ARRAY CODE
 Part 4. THE FLICKR JSON FEED CODE
  */
 
+
 var getFlickPix = function() {
-    $.getJSON("http://www.flickr.com/services/feeds/photos_public.gne?tags=punctuation,atsign&format=json", function(data){
+	// e.preventDefault();
+	flickrURL = "http://www.flickr.com/services/feeds/photos_public.gne?jsoncallback=?"
+    $.getJSON(flickrURL, {
+    	tags: "punctuation,atsign",
+    	format: "json"
+    }).then(function(data){
     	console.dir(data)
+    	// $('#flickrPhotos').append(
+    	// 		data.items.forEach(function(element, index){
+    	// 			debugger;
+    	// 			var test = _.template("<h4>{title}</h4><img src='{link}'><hr>", element)
+    	// 			return test;
+    	// 		})
+    	// 	)
+
+    	data.items.forEach(function(element){
+    		var photo = _.template("<h4>{description}</h4><hr>", element)
+    		$('#flickrPhotos').append(photo);
+    	})
     })
-	debugger;
+
+
+
+    // debugger;
+	// return $.getJSON("/flickrAPI/?tags=punctuation,atsign&format=json&callback=?").then(function(data){
+	//     	debugger;
+	//     	console.dir(data.items)
+	//     	return data;
+	//     })
+	
 	// var flickrFeedObject = $.parseJSON(flickrFeed)
 	// console.dir(flickrFeedObject);
 	// console.dir(flickrFeed);
+	// http://www.flickr.com/services/feeds/photos_public.gne?tags=punctuation,atsign&format=jsoncallback=?
 }
 
 $('#flickrpics').on('click', getFlickPix);
